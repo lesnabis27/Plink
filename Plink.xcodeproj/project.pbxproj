@@ -21,6 +21,9 @@
 		2213C93B217BD021005D6A61 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2213C93A217BD021005D6A61 /* ExtensionDelegate.swift */; };
 		2213C93D217BD021005D6A61 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2213C93C217BD021005D6A61 /* ComplicationController.swift */; };
 		2213C93F217BD022005D6A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2213C93E217BD022005D6A61 /* Assets.xcassets */; };
+		22C1888A217BFB5800C7B710 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C18889217BFB5700C7B710 /* Game.swift */; };
+		22C1888C217BFC2400C7B710 /* PaddleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C1888B217BFC2400C7B710 /* PaddleNode.swift */; };
+		22C1888E217BFD9600C7B710 /* BallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C1888D217BFD9600C7B710 /* BallNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +96,9 @@
 		2213C93C217BD021005D6A61 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		2213C93E217BD022005D6A61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2213C940217BD022005D6A61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22C18889217BFB5700C7B710 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		22C1888B217BFC2400C7B710 /* PaddleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddleNode.swift; sourceTree = "<group>"; };
+		22C1888D217BFD9600C7B710 /* BallNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +184,9 @@
 			isa = PBXGroup;
 			children = (
 				2213C938217BD021005D6A61 /* InterfaceController.swift */,
+				22C18889217BFB5700C7B710 /* Game.swift */,
+				22C1888B217BFC2400C7B710 /* PaddleNode.swift */,
+				22C1888D217BFD9600C7B710 /* BallNode.swift */,
 				2213C93A217BD021005D6A61 /* ExtensionDelegate.swift */,
 				2213C93C217BD021005D6A61 /* ComplicationController.swift */,
 				2213C93E217BD022005D6A61 /* Assets.xcassets */,
@@ -365,9 +374,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C1888E217BFD9600C7B710 /* BallNode.swift in Sources */,
 				2213C93B217BD021005D6A61 /* ExtensionDelegate.swift in Sources */,
 				2213C939217BD021005D6A61 /* InterfaceController.swift in Sources */,
 				2213C93D217BD021005D6A61 /* ComplicationController.swift in Sources */,
+				22C1888C217BFC2400C7B710 /* PaddleNode.swift in Sources */,
+				22C1888A217BFB5800C7B710 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

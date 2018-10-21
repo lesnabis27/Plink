@@ -11,20 +11,28 @@ import Foundation
 
 
 class InterfaceController: WKInterfaceController {
+    
+    // IBOutlets
+    @IBOutlet weak var sceneInterface: WKInterfaceSKScene!
+    
+    let gameScene = Game(size: WKInterfaceDevice.current().screenBounds.size)
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
         // Configure interface objects here.
+        sceneInterface.presentScene(gameScene)
     }
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
+        gameScene.start()
         super.willActivate()
     }
     
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
+        gameScene.stop()
         super.didDeactivate()
     }
 
