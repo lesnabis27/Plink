@@ -14,6 +14,9 @@ class Game: SKScene {
     var ball = BallNode()
     var score: Int = 0
     
+    // Paddle behavior
+    var paddlePosition = CGPoint(x: 0.0, y: 0.0)
+    
     // Ball behavior
     var xVelocity = CGFloat(0.0)
     var yVelocity = CGFloat(0.0)
@@ -30,9 +33,20 @@ class Game: SKScene {
     }
     
     func setup() {
+        paddlePosition.x = size.width
         ballPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         addChild(paddle)
         addChild(ball)
+    }
+    
+    func updatePaddlePosition(by rotation: CGFloat) {
+        let amount = size.height / rotation
+        paddlePosition.y += amount
+        if paddlePosition.y < 0 {
+            paddlePosition.y = 0
+        } else if paddlePosition.y > size.height {
+            paddlePosition.y = size.height
+        }
     }
     
     func updateBallPosition() {

@@ -9,5 +9,15 @@
 import SpriteKit
 
 class BallNode: SKSpriteNode {
+    
+    let image = SKTexture(imageNamed: "ball")
+    
+    init() {
+        super.init(texture: image, color: .clear, size: image.size())
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 
 }

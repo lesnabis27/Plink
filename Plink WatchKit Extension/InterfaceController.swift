@@ -10,30 +10,31 @@ import WatchKit
 import Foundation
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, WKCrownDelegate {
     
-    // IBOutlets
     @IBOutlet weak var sceneInterface: WKInterfaceSKScene!
     
     let gameScene = Game(size: WKInterfaceDevice.current().screenBounds.size)
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        // Configure interface objects here.
         sceneInterface.presentScene(gameScene)
     }
     
     override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
+        crownSequencer.delegate = self
+        crownSequencer.focus()
         gameScene.start()
         super.willActivate()
     }
     
     override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
         gameScene.stop()
         super.didDeactivate()
+    }
+    
+    func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
+        gameScene.updatePaddlePosition(by: CGFloat(rotationalDelta))
     }
 
 }
