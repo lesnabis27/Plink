@@ -24,6 +24,7 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
     override func willActivate() {
         crownSequencer.delegate = self
         crownSequencer.focus()
+        gameScene.scaleMode = .aspectFit
         gameScene.start()
         super.willActivate()
     }

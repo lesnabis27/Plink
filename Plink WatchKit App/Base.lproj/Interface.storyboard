@@ -13,10 +13,12 @@
             <objects>
                 <controller fullScreen="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Plink_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <spriteKitScene alignment="left" id="Fb7-g1-SEF"/>
+                        <spriteKitScene alignment="left" id="cgd-wm-onW"/>
                     </items>
+                    <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
-                        <outlet property="sceneInterface" destination="Fb7-g1-SEF" id="aAY-2n-VRp"/>
+                        <outlet property="sceneInterface" destination="cgd-wm-onW" id="RWc-Fa-say"/>
                     </connections>
                 </controller>
             </objects>
