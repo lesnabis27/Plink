@@ -14,10 +14,20 @@ class PaddleNode: SKSpriteNode {
     
     init() {
         super.init(texture: image, color: .clear, size: image.size())
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func setup() {
+        name = "paddle"
+        physicsBody = SKPhysicsBody(rectangleOf: size)
+        physicsBody?.isDynamic = false
+        physicsBody?.friction = 0.0
+        physicsBody?.contactTestBitMask = physicsBody!.collisionBitMask
     }
 
 }

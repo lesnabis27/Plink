@@ -14,10 +14,24 @@ class BallNode: SKSpriteNode {
     
     init() {
         super.init(texture: image, color: .clear, size: image.size())
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func setup() {
+        name = "ball"
+        physicsBody = SKPhysicsBody(circleOfRadius: size.width * 0.5)
+        physicsBody?.usesPreciseCollisionDetection = true
+        physicsBody?.isDynamic = true
+        physicsBody?.restitution = 1.0
+        physicsBody?.friction = 0.0
+        physicsBody?.linearDamping = 0.0
+        physicsBody?.allowsRotation = false
+        physicsBody?.contactTestBitMask = physicsBody!.collisionBitMask
     }
 
 }

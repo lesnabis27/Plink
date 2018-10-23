@@ -8,10 +8,11 @@
 
 import SpriteKit
 
-class Game: SKScene {
+class Game: SKScene, SKPhysicsContactDelegate {
 
     var paddle = PaddleNode()
     var ball = BallNode()
+    var scoreLabel = ScoreNode()
     var score: Int = 0
     
     // Paddle behavior
@@ -33,13 +34,21 @@ class Game: SKScene {
     }
     
     func setup() {
+        // Set up the world
+        backgroundColor = .black
+        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        physicsWorld.contactDelegate = self
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
+        // Set up paddle and ball nodes
         paddlePosition = CGPoint(x: size.width - paddle.size.width * 0.5, y: size.height * 0.5)
         ballPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        addChild(paddle)
-        addChild(ball)
         paddle.position = paddlePosition
         ball.position = ballPosition
-        backgroundColor = .black
+        addChild(paddle)
+        addChild(ball)
+        // Set up the score node
+        scoreLabel.position = CGPoint(x: 0.0, y: size.height)
+        addChild(scoreLabel)
     }
     
     func updatePaddlePosition(by rotation: CGFloat) {
@@ -70,10 +79,26 @@ class Game: SKScene {
     func start() {
         xVelocity = 1.0
         yVelocity = CGFloat.random(in: -0.5...0.5)
+        ball.physicsBody?.applyImpulse(CGVector(dx: -0.5, dy: yVelocity))
     }
     
     func stop() {
         // End the game
+    }
+    
+    // Collisions
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.node?.name == "ball" {
+            collisionBetween(ball: contact.bodyA.node!, object: contact.bodyB.node!)
+        }
+    }
+    
+    func collisionBetween(ball: SKNode, object: SKNode) {
+        if object.name == "paddle" {
+            score += 1
+            scoreLabel.text = String(score)
+        }
     }
     
 }
