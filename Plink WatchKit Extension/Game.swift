@@ -19,10 +19,15 @@ class Game: SKScene, SKPhysicsContactDelegate {
     var paddlePosition = CGPoint(x: 0.0, y: 0.0)
     
     // Ball behavior
-    var xVelocity = CGFloat(0.0)
-    var yVelocity = CGFloat(0.0)
     var ballPosition = CGPoint(x: 0.0, y: 0.0)
     
+    // Insets
+    var layoutMargins = NSDirectionalEdgeInsets() {
+        didSet {
+            scoreLabel.position = CGPoint(x: layoutMargins.leading,
+                                          y: frame.maxY - layoutMargins.leading)
+        }
+    }
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -36,19 +41,31 @@ class Game: SKScene, SKPhysicsContactDelegate {
     func setup() {
         // Set up the world
         backgroundColor = .black
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
+        physicsBody = SKPhysicsBody(edgeChainFrom: makeOpenEdgePath())
+        physicsWorld.contactDelegate = self
         // Set up paddle and ball nodes
         paddlePosition = CGPoint(x: size.width - paddle.size.width * 0.5, y: size.height * 0.5)
-        ballPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         paddle.position = paddlePosition
-        ball.position = ballPosition
+        centerBall()
         addChild(paddle)
         addChild(ball)
         // Set up the score node
-        scoreLabel.position = CGPoint(x: 0.0, y: size.height)
         addChild(scoreLabel)
+    }
+    
+    func makeOpenEdgePath() -> CGPath {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: frame.maxX, y: frame.minY))
+        path.addLine(to: CGPoint(x: frame.minX, y: frame.minY))
+        path.addLine(to: CGPoint(x: frame.minX, y: frame.maxY))
+        path.addLine(to: CGPoint(x: frame.maxX, y: frame.maxY))
+        return path.cgPath
+    }
+    
+    func centerBall() {
+        ballPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        ball.position = ballPosition
     }
     
     func updatePaddlePosition(by rotation: CGFloat) {
@@ -64,26 +81,22 @@ class Game: SKScene, SKPhysicsContactDelegate {
         paddle.position = paddlePosition
     }
     
-    func updateBallPosition() {
-        if ballPosition.y < 0 || ballPosition.y > size.height {
-            yVelocity *= -1
-        }
-        if ballPosition.x < 0 {
-            xVelocity *= -1
-        }
-        ballPosition.x += xVelocity
-        ballPosition.y += yVelocity
-        ball.position = ballPosition
-    }
-    
     func start() {
-        xVelocity = 1.0
-        yVelocity = CGFloat.random(in: -0.5...0.5)
-        ball.physicsBody?.applyImpulse(CGVector(dx: -0.5, dy: yVelocity))
+        centerBall()
+        ball.beginMove()
     }
     
     func stop() {
-        // End the game
+        score = 0
+        scoreLabel.text = String(score)
+        ball.physicsBody?.velocity = CGVector(dx: 0.0, dy: 0.0)
+        start()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if ball.frame.minX > frame.maxX {
+            stop()
+        }
     }
     
     // Collisions
@@ -91,6 +104,8 @@ class Game: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node?.name == "ball" {
             collisionBetween(ball: contact.bodyA.node!, object: contact.bodyB.node!)
+        } else if contact.bodyB.node?.name == "ball" {
+            collisionBetween(ball: contact.bodyB.node!, object: contact.bodyA.node!)
         }
     }
     

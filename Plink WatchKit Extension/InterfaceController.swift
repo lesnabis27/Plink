@@ -19,18 +19,24 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         sceneInterface.presentScene(gameScene)
+        gameScene.start()
     }
     
     override func willActivate() {
         crownSequencer.delegate = self
         crownSequencer.focus()
         gameScene.scaleMode = .aspectFit
-        gameScene.start()
+        gameScene.isPaused = false
         super.willActivate()
+    }
+    
+    override func didAppear() {
+        gameScene.layoutMargins = systemMinimumLayoutMargins
     }
     
     override func didDeactivate() {
         gameScene.stop()
+        gameScene.isPaused = true
         super.didDeactivate()
     }
     

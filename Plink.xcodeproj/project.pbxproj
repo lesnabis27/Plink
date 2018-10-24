@@ -136,6 +136,7 @@
 				2213C928217BD021005D6A61 /* Plink WatchKit App */,
 				2213C937217BD021005D6A61 /* Plink WatchKit Extension */,
 				2213C908217BD01F005D6A61 /* Products */,
+				22E77699217FFDD200E8254A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -196,6 +197,13 @@
 				2213C940217BD022005D6A61 /* Info.plist */,
 			);
 			path = "Plink WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		22E77699217FFDD200E8254A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +302,11 @@
 					};
 					2213C932217BD021005D6A61 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

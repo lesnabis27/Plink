@@ -21,9 +21,9 @@ class ScoreNode: SKLabelNode {
     }
     
     func setup() {
-        text = "Plink"
-        fontName = "San Francisco"
-        fontSize = 16
+        text = "0"
+        fontName = "SFCompactText-Regular"
+        fontSize = 24
         fontColor = UIColor.white
         horizontalAlignmentMode = .left
         verticalAlignmentMode = .top
