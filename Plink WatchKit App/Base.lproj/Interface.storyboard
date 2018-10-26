@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.30.1" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.30.1" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9Qw-kb-HBV">
     <device id="watch44" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,10 +8,35 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14460.16.1"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--start-->
+        <scene sceneID="fTl-Bm-zq1">
+            <objects>
+                <controller identifier="start" id="9Qw-kb-HBV">
+                    <items>
+                        <label alignment="left" text="Plink" id="D2O-aW-t0A">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
+                        </label>
+                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" id="qgW-ZX-sXm">
+                            <items>
+                                <button width="1" alignment="left" title="Start a Game" id="F0N-wc-9gf">
+                                    <connections>
+                                        <segue destination="AgC-eL-Hgc" kind="push" id="agr-kT-iNC"/>
+                                    </connections>
+                                </button>
+                                <label alignment="center" text="High Score" id="8yD-Tq-ri0">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="-87" y="86"/>
+        </scene>
+        <!--Game-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller fullScreen="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Plink_WatchKit_App" customModuleProvider="target">
+                <controller identifier="game" title="Game" fullScreen="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Plink_WatchKit_App" customModuleProvider="target">
                     <items>
                         <spriteKitScene alignment="left" id="cgd-wm-onW"/>
                     </items>
@@ -21,6 +46,38 @@
                     </connections>
                 </controller>
             </objects>
+            <point key="canvasLocation" x="132" y="86"/>
+        </scene>
+        <!--Game Over-->
+        <scene sceneID="AmP-aU-Lzs">
+            <objects>
+                <controller identifier="gameOver" title="Game Over" id="zKQ-Gp-KHr" customClass="gameOverInterfaceController" customModule="Plink_WatchKit_Extension">
+                    <items>
+                        <label alignment="center" text="Score" id="eY9-tV-eg0">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
+                        </label>
+                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" id="EAt-1h-W7R">
+                            <items>
+                                <button width="1" alignment="left" title="Play Again" id="k7Y-4a-nz3">
+                                    <connections>
+                                        <segue destination="AgC-eL-Hgc" kind="push" id="wtI-Xg-HXI"/>
+                                    </connections>
+                                </button>
+                                <label alignment="center" text="High Score" id="iBr-37-XYy">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="scoreLabel" destination="eY9-tV-eg0" id="dSe-g5-2oI"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="350" y="86"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="wtI-Xg-HXI"/>
+    </inferredMetricsTieBreakers>
 </document>

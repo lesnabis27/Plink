@@ -10,6 +10,8 @@ import SpriteKit
 
 class Game: SKScene, SKPhysicsContactDelegate {
 
+    var interfaceDelegate: InterfaceController?
+    
     var paddle = PaddleNode()
     var ball = BallNode()
     var scoreLabel = ScoreNode()
@@ -87,10 +89,7 @@ class Game: SKScene, SKPhysicsContactDelegate {
     }
     
     func stop() {
-        score = 0
-        scoreLabel.text = String(score)
-        ball.physicsBody?.velocity = CGVector(dx: 0.0, dy: 0.0)
-        start()
+        interfaceDelegate!.pushController(withName: "gameOver", context: score)
     }
     
     override func update(_ currentTime: TimeInterval) {

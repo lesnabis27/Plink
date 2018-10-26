@@ -18,6 +18,7 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        gameScene.interfaceDelegate = self
         sceneInterface.presentScene(gameScene)
         gameScene.start()
     }
