@@ -189,11 +189,11 @@
 			isa = PBXGroup;
 			children = (
 				2213C938217BD021005D6A61 /* InterfaceController.swift */,
-				2283A1EE2182A40F00869693 /* gameOverInterfaceController.swift */,
 				22C18889217BFB5700C7B710 /* Game.swift */,
 				22C1888B217BFC2400C7B710 /* PaddleNode.swift */,
 				22C1888D217BFD9600C7B710 /* BallNode.swift */,
 				22E77697217E64C000E8254A /* ScoreNode.swift */,
+				2283A1EE2182A40F00869693 /* gameOverInterfaceController.swift */,
 				2213C93A217BD021005D6A61 /* ExtensionDelegate.swift */,
 				2213C93C217BD021005D6A61 /* ComplicationController.swift */,
 				2213C93E217BD022005D6A61 /* Assets.xcassets */,

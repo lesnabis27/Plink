@@ -9,7 +9,6 @@
 import WatchKit
 import Foundation
 
-
 class InterfaceController: WKInterfaceController, WKCrownDelegate {
     
     @IBOutlet weak var sceneInterface: WKInterfaceSKScene!
@@ -32,6 +31,7 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
     }
     
     override func didAppear() {
+        // This is the first place this will work
         gameScene.layoutMargins = systemMinimumLayoutMargins
     }
     

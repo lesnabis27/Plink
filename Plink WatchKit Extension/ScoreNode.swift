@@ -28,5 +28,23 @@ class ScoreNode: SKLabelNode {
         horizontalAlignmentMode = .left
         verticalAlignmentMode = .top
     }
+    
+    func countDown() {
+        let wait = SKAction.wait(forDuration: 1.0)
+        let three = SKAction.run {
+            self.text = "3"
+        }
+        let two = SKAction.run {
+            self.text = "2"
+        }
+        let one = SKAction.run {
+            self.text = "1"
+        }
+        let zero = SKAction.run {
+            self.text = "0"
+        }
+        let sequence = SKAction.sequence([three, wait, two, wait, one, wait, zero])
+        run(sequence)
+    }
 
 }

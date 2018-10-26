@@ -34,11 +34,9 @@ class BallNode: SKSpriteNode {
         physicsBody?.contactTestBitMask = physicsBody!.collisionBitMask
     }
     
-    func beginMove() {
-        let wait = SKAction.wait(forDuration: 1.0)
+    func launch() {
         let move = SKAction.applyImpulse(CGVector(dx: 0.5, dy: CGFloat.random(in: -0.5...0.5)), duration: 0.1)
-        let sequence = SKAction.sequence([wait, move])
-        run(sequence)
+        run(move)
     }
 
 }

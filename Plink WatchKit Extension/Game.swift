@@ -10,18 +10,20 @@ import SpriteKit
 
 class Game: SKScene, SKPhysicsContactDelegate {
 
+    // MARK: - Properties
+    
+    // Owning interface controller
     var interfaceDelegate: InterfaceController?
     
+    // Nodes and such
     var paddle = PaddleNode()
     var ball = BallNode()
     var scoreLabel = ScoreNode()
-    var score: Int = 0
-    
-    // Paddle behavior
-    var paddlePosition = CGPoint(x: 0.0, y: 0.0)
-    
-    // Ball behavior
-    var ballPosition = CGPoint(x: 0.0, y: 0.0)
+    var score: Int = 0 {
+        didSet {
+            scoreLabel.text = String(score)
+        }
+    }
     
     // Insets
     var layoutMargins = NSDirectionalEdgeInsets() {
@@ -30,6 +32,8 @@ class Game: SKScene, SKPhysicsContactDelegate {
                                           y: frame.maxY - layoutMargins.leading)
         }
     }
+    
+    // MARK: - Initializers
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -47,8 +51,7 @@ class Game: SKScene, SKPhysicsContactDelegate {
         physicsBody = SKPhysicsBody(edgeChainFrom: makeOpenEdgePath())
         physicsWorld.contactDelegate = self
         // Set up paddle and ball nodes
-        paddlePosition = CGPoint(x: size.width - paddle.size.width * 0.5, y: size.height * 0.5)
-        paddle.position = paddlePosition
+        paddle.position = CGPoint(x: size.width - paddle.size.width * 0.5, y: size.height * 0.5)
         centerBall()
         addChild(paddle)
         addChild(ball)
@@ -65,41 +68,50 @@ class Game: SKScene, SKPhysicsContactDelegate {
         return path.cgPath
     }
     
+    // MARK: - Game
+    
     func centerBall() {
-        ballPosition = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        ball.position = ballPosition
+        ball.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
     }
     
     func updatePaddlePosition(by rotation: CGFloat) {
         let amount = size.height * rotation
         let upperBound = paddle.size.height * 0.5
         let lowerBound = size.height - paddle.size.height * 0.5
-        paddlePosition.y += amount
-        if paddlePosition.y < upperBound {
-            paddlePosition.y = upperBound
-        } else if paddlePosition.y > lowerBound {
-            paddlePosition.y = lowerBound
+        paddle.position.y += amount
+        if paddle.position.y < upperBound {
+            paddle.position.y = upperBound
+        } else if paddle.position.y > lowerBound {
+            paddle.position.y = lowerBound
         }
-        paddle.position = paddlePosition
     }
     
+    // Countdown and launch the ball
     func start() {
+        let countdown = SKAction.run {
+            self.scoreLabel.countDown()
+        }
+        let launch = SKAction.run {
+            self.ball.launch()
+        }
         centerBall()
-        ball.beginMove()
+        self.run(SKAction.sequence([countdown, SKAction.wait(forDuration: 3.0), launch]))
     }
     
+    // Reset the game and show the game over screen
     func stop() {
         interfaceDelegate!.pushController(withName: "gameOver", context: score)
     }
     
+    // Catch each frame
     override func update(_ currentTime: TimeInterval) {
         if ball.frame.minX > frame.maxX {
             stop()
         }
     }
     
-    // Collisions
-    
+    // MARK: - Collisions
+
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node?.name == "ball" {
             collisionBetween(ball: contact.bodyA.node!, object: contact.bodyB.node!)
