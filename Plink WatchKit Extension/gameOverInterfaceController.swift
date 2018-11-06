@@ -16,7 +16,7 @@ class gameOverInterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        setTitle("Plink")
+        setTitle("Play Again")
         if context != nil {
             let contextInt = context as! Int
             scoreLabel.setText(String(contextInt))

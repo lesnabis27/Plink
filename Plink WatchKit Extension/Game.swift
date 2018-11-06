@@ -100,7 +100,10 @@ class Game: SKScene, SKPhysicsContactDelegate {
     
     // Reset the game and show the game over screen
     func stop() {
-        interfaceDelegate!.pushController(withName: "gameOver", context: score)
+        let gameOverScreen = SKAction.run {
+            self.interfaceDelegate!.presentController(withName: "gameOver", context: self.score)
+        }
+        self.run(SKAction.sequence([SKAction.wait(forDuration: 0.5), gameOverScreen]))
     }
     
     // Catch each frame
@@ -115,8 +118,10 @@ class Game: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node?.name == "ball" {
             collisionBetween(ball: contact.bodyA.node!, object: contact.bodyB.node!)
+            print(contactedPaddle(at: contact.contactPoint))
         } else if contact.bodyB.node?.name == "ball" {
             collisionBetween(ball: contact.bodyB.node!, object: contact.bodyA.node!)
+            print(contactedPaddle(at: contact.contactPoint))
         }
     }
     
@@ -125,6 +130,11 @@ class Game: SKScene, SKPhysicsContactDelegate {
             score += 1
             scoreLabel.text = String(score)
         }
+    }
+    
+    func contactedPaddle(at point: CGPoint) -> CGFloat {
+        let distanceFromCenter = point.y - paddle.position.y
+        return distanceFromCenter
     }
     
 }
