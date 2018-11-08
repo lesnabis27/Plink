@@ -51,7 +51,7 @@ class Game: SKScene, SKPhysicsContactDelegate {
         physicsBody = SKPhysicsBody(edgeChainFrom: makeOpenEdgePath())
         physicsWorld.contactDelegate = self
         // Set up paddle and ball nodes
-        paddle.position = CGPoint(x: size.width - paddle.size.width * 0.5, y: size.height * 0.5)
+        centerPaddle()
         centerBall()
         addChild(paddle)
         addChild(ball)
@@ -74,6 +74,10 @@ class Game: SKScene, SKPhysicsContactDelegate {
         ball.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
     }
     
+    func centerPaddle() {
+        paddle.position = CGPoint(x: size.width - paddle.size.width * 0.5, y: size.height * 0.5)
+    }
+    
     func updatePaddlePosition(by rotation: CGFloat) {
         let amount = size.height * rotation
         let upperBound = paddle.size.height * 0.5
@@ -94,16 +98,24 @@ class Game: SKScene, SKPhysicsContactDelegate {
         let launch = SKAction.run {
             self.ball.launch()
         }
-        centerBall()
         self.run(SKAction.sequence([countdown, SKAction.wait(forDuration: 3.0), launch]))
     }
     
     // Reset the game and show the game over screen
     func stop() {
-        let gameOverScreen = SKAction.run {
-            self.interfaceDelegate!.presentController(withName: "gameOver", context: self.score)
-        }
-        self.run(SKAction.sequence([SKAction.wait(forDuration: 0.5), gameOverScreen]))
+        print("Stop called")
+        interfaceDelegate!.presentController(withName: "gameOver", context: score)
+        // Start again when screen is dismissed
+        reset()
+        start()
+    }
+    
+    // Reset everything
+    func reset() {
+        score = 0
+        centerBall()
+        centerPaddle()
+        ball.physicsBody?.velocity = CGVector.zero
     }
     
     // Catch each frame
