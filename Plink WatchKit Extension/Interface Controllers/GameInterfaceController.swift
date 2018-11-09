@@ -9,40 +9,41 @@
 import WatchKit
 import Foundation
 
-class InterfaceController: WKInterfaceController, WKCrownDelegate {
+class GameInterfaceController: WKInterfaceController, WKCrownDelegate {
     
     @IBOutlet weak var sceneInterface: WKInterfaceSKScene!
     
-    let gameScene = Game(size: WKInterfaceDevice.current().screenBounds.size)
+    var game: Game?
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        gameScene.interfaceDelegate = self
-        sceneInterface.presentScene(gameScene)
-        gameScene.start()
+        let mode = context as? GameType ?? GameType.singles
+        game = Game(size: WKInterfaceDevice.current().screenBounds.size, type: mode)
+        game!.interfaceDelegate = self
+        sceneInterface.presentScene(game!)
+        game!.start()
     }
     
     override func willActivate() {
         crownSequencer.delegate = self
         crownSequencer.focus()
-        gameScene.scaleMode = .aspectFit
-        gameScene.isPaused = false
+        game!.isPaused = false
         super.willActivate()
     }
     
     override func didAppear() {
         // This is the first place this will work
-        gameScene.layoutMargins = systemMinimumLayoutMargins
+        game!.layoutMargins = systemMinimumLayoutMargins
     }
     
     override func didDeactivate() {
-        gameScene.stop()
-        gameScene.isPaused = true
+        game!.stop()
+        game!.isPaused = true
         super.didDeactivate()
     }
     
     func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
-        gameScene.updatePaddlePosition(by: CGFloat(rotationalDelta))
+        game!.updatePaddlePosition(by: CGFloat(rotationalDelta))
     }
 
 }

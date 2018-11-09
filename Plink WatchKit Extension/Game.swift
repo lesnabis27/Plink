@@ -8,12 +8,16 @@
 
 import SpriteKit
 
+enum GameType {
+    case singles, doubles
+}
+
 class Game: SKScene, SKPhysicsContactDelegate {
 
     // MARK: - Properties
     
     // Owning interface controller
-    var interfaceDelegate: InterfaceController?
+    var interfaceDelegate: GameInterfaceController?
     
     // Nodes and such
     var paddle = PaddleNode()
@@ -24,6 +28,7 @@ class Game: SKScene, SKPhysicsContactDelegate {
             scoreLabel.text = String(score)
         }
     }
+    var mode: GameType
     
     // Insets
     var layoutMargins = NSDirectionalEdgeInsets() {
@@ -36,11 +41,20 @@ class Game: SKScene, SKPhysicsContactDelegate {
     // MARK: - Initializers
     
     override init(size: CGSize) {
+        mode = GameType.singles
         super.init(size: size)
         setup()
     }
+    
     required init?(coder aDecoder: NSCoder) {
+        mode = GameType.singles
         super.init(coder: aDecoder)
+        setup()
+    }
+    
+    convenience init(size: CGSize, type: GameType) {
+        self.init(size: size)
+        mode = type
         setup()
     }
     
@@ -103,7 +117,6 @@ class Game: SKScene, SKPhysicsContactDelegate {
     
     // Reset the game and show the game over screen
     func stop() {
-        print("Stop called")
         interfaceDelegate!.presentController(withName: "gameOver", context: score)
         // Start again when screen is dismissed
         reset()

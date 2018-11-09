@@ -11,7 +11,7 @@
         <!--start-->
         <scene sceneID="fTl-Bm-zq1">
             <objects>
-                <controller identifier="start" id="9Qw-kb-HBV">
+                <controller identifier="start" id="9Qw-kb-HBV" customClass="StartInterfaceController" customModule="Plink_WatchKit_Extension">
                     <items>
                         <label alignment="left" text="Plink" id="D2O-aW-t0A">
                             <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
@@ -20,10 +20,14 @@
                             <items>
                                 <button width="1" alignment="left" title="Singles Game" id="F0N-wc-9gf">
                                     <connections>
-                                        <segue destination="AgC-eL-Hgc" kind="push" id="agr-kT-iNC"/>
+                                        <action selector="singlesButtonPressed" destination="9Qw-kb-HBV" id="yta-Hw-be6"/>
                                     </connections>
                                 </button>
-                                <button width="1" alignment="left" title="Doubles Game" id="Kvg-73-3Kx"/>
+                                <button width="1" alignment="left" title="Doubles Game" id="Kvg-73-3Kx">
+                                    <connections>
+                                        <action selector="doublesButtonPressed" destination="9Qw-kb-HBV" id="abM-jW-T1r"/>
+                                    </connections>
+                                </button>
                             </items>
                         </group>
                     </items>
@@ -34,7 +38,7 @@
         <!--Game-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="game" title="Game" fullScreen="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Plink_WatchKit_App" customModuleProvider="target">
+                <controller identifier="game" title="Game" fullScreen="YES" id="AgC-eL-Hgc" customClass="GameInterfaceController" customModule="Plink_WatchKit_Extension">
                     <items>
                         <spriteKitScene alignment="left" id="cgd-wm-onW"/>
                     </items>
@@ -49,7 +53,7 @@
         <!--Play Again-->
         <scene sceneID="AmP-aU-Lzs">
             <objects>
-                <controller identifier="gameOver" title="Play Again" id="zKQ-Gp-KHr" customClass="gameOverInterfaceController" customModule="Plink_WatchKit_Extension">
+                <controller identifier="gameOver" title="Play Again" id="zKQ-Gp-KHr" customClass="GameOverInterfaceController" customModule="Plink_WatchKit_Extension">
                     <items>
                         <label alignment="center" verticalAlignment="center" text="Score" id="eY9-tV-eg0">
                             <fontDescription key="font" style="UICTFontTextStyleTitle0"/>

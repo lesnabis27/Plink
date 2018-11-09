@@ -10,9 +10,11 @@ import WatchKit
 import Foundation
 
 
-class gameOverInterfaceController: WKInterfaceController {
+class GameOverInterfaceController: WKInterfaceController {
 
     @IBOutlet weak var scoreLabel: WKInterfaceLabel!
+    
+    var owner: WKInterfaceController?
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -31,6 +33,7 @@ class gameOverInterfaceController: WKInterfaceController {
 
     override func didDeactivate() {
         super.didDeactivate()
+        print("Modal interface did deactivate")
     }
 
 }
